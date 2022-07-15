@@ -1,6 +1,7 @@
 # netology lw-2
 
 ```
+git clone https://github.com/sourcejs-dev/netology.git
 cd lw-2
 npm i
 node index.js -f name
