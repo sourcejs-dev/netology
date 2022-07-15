@@ -10,7 +10,10 @@ const app = async () => {
     if (item > number) return { message: "Меньше", status: true };
     if (item < number) return { message: "Больше", status: true };
 
-    return { message: `Ты угадал число!🥳 Это было: ${number}`, status: false };
+    return {
+      message: `Ты угадал(-а) число!🥳 Это было: ${number}`,
+      status: false,
+    };
   };
 
   let status = true;
