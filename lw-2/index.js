@@ -49,12 +49,12 @@ const app = async (argv) => {
         if (value === randomValue) {
           statusGame = false;
           statusTerminal = false;
-          logs = `Статус партий: Выиграно\nДата: ${new Date().toISOString()}\n`;
+          logs = `Статус партий: Выиграно\nДата: ${new Date().toISOString()}\n\n`;
           console.log("Правильно! Игра завершена");
           await fs.appendFile(dir, logs, "utf-8");
         } else {
           randomValue = getNumber();
-          logs = `Статус партий: Проиграно\nДата: ${new Date().toISOString()}\n`;
+          logs = `Статус партий: Проиграно\nДата: ${new Date().toISOString()}\n\n`;
           console.log("Неправильно! Попробуй еще раз!");
           await fs.appendFile(dir, logs, "utf-8");
         }
@@ -64,6 +64,7 @@ const app = async (argv) => {
     process.exit(1);
   } catch (e) {
     console.log(`Приложение сломалось с ошибкой: ${e.stack}`);
+    process.exit(1);
   }
 };
 
