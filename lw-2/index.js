@@ -49,17 +49,18 @@ const app = async (argv) => {
         if (value === randomValue) {
           statusGame = false;
           statusTerminal = false;
-          logs += `Статус партий: Выиграно\nДата: ${new Date().toISOString()}\n`;
+          logs = `Статус партий: Выиграно\nДата: ${new Date().toISOString()}\n`;
           console.log("Правильно! Игра завершена");
+          await fs.appendFile(dir, logs, "utf-8");
         } else {
           randomValue = getNumber();
-          logs += `Статус партий: Проиграно\nДата: ${new Date().toISOString()}\n`;
+          logs = `Статус партий: Проиграно\nДата: ${new Date().toISOString()}\n`;
           console.log("Неправильно! Попробуй еще раз!");
+          await fs.appendFile(dir, logs, "utf-8");
         }
       }
     }
 
-    await fs.appendFile(dir, logs, "utf-8");
     process.exit(1);
   } catch (e) {
     console.log(`Приложение сломалось с ошибкой: ${e.stack}`);
