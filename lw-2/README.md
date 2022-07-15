@@ -6,7 +6,7 @@ npm i
 node index.js -f name
 ```
 
--f/--files
+-f/--file <br>
 name - название файла для логирования
 
 ## Описаниа игры
