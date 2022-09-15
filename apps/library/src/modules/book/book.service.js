@@ -25,12 +25,7 @@ const updateById = async (data) => {
 
 	await findById(id);
 
-	let status = false;
-	Object.keys(rest).forEach((item) => {
-		if (rest[item] && rest[item].length) status = true;
-	});
-
-	if (!status)
+	if (!Object.keys(rest).length)
 		throw ApiError.badRequest(
 			'Передайте хотя бы 1 параметр для обновление сущности'
 		);

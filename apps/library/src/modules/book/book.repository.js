@@ -5,7 +5,9 @@ const create = (data) => Book.create(data);
 const findById = (id) => Book.findOne({ _id: id });
 const updateById = async (data) => {
 	const { id: _id, ...update } = data;
-	const el = await Book.findOneAndUpdate({ _id }, update);
+	const el = await Book.findOneAndUpdate({ _id }, update, {
+		returnOriginal: false,
+	});
 
 	return el;
 };
