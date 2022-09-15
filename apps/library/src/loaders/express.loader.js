@@ -46,8 +46,8 @@ module.exports = () => {
 	const app = express();
 	app
 		.use(express.json())
-		.use(express.urlencoded())
-		.use(session({ secret: 'SECRET' }))
+		.use(express.urlencoded({ extended: true }))
+		.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }))
 		.use(passport.initialize())
 		.use(passport.session())
 		.set('view engine', 'ejs')
