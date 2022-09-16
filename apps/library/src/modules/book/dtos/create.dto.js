@@ -11,12 +11,9 @@ class CreateBookDTO {
 		fileName,
 		fileBook,
 	}) {
-		if (!title) throw ApiError.badRequest('Отсутствует параметр title');
-		if (!description)
-			throw ApiError.badRequest('Отсутствует параметр description');
-		if (!authors) throw ApiError.badRequest('Отсутствует параметр authors');
-		if (!favorite) throw ApiError.badRequest('Отсутствует параметр favorite');
-		if (!fileCover) throw ApiError.badRequest('Отсутствует параметр fileCover');
+		if (!title) throw ApiError.badRequest('Отсутствует Заголовок');
+		if (!description) throw ApiError.badRequest('Отсутствует Описание');
+		if (!authors) throw ApiError.badRequest('Отсутствуют Авторы');
 		if (!fileBook) throw ApiError.badRequest('Отсутствует параметр fileBook');
 		if (!fileName) throw ApiError.badRequest('Отсутствует параметр fileName');
 
@@ -27,14 +24,14 @@ class CreateBookDTO {
 			typeof fileCover !== 'string' ||
 			typeof fileName !== 'string'
 		)
-			throw ApiError.badRequest('Параметры имеют некорректный тип данных');
+			throw ApiError('Параметры имеют некорректный тип данных');
 
 		this.id = uuidv4();
 		this.title = title;
 		this.description = description;
 		this.authors = authors;
-		this.favorite = favorite;
-		this.fileCover = fileCover;
+		this.favorite = favorite || false;
+		this.fileCover = fileCover || null;
 		this.fileName = fileName;
 		this.fileBook = fileBook || null;
 	}
