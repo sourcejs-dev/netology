@@ -6,6 +6,7 @@ const router = Router();
 
 router.get('/books', BookController.findAll);
 router.post('/books', fileMiddleware.single('image'), BookController.create);
+router.post('/web/books', fileMiddleware.single('image'), BookController.createWeb);
 router.get('/books/:id', BookController.findById);
 router.put('/books/:id', BookController.updateById);
 router.delete('/books/:id', BookController.destroyById);
