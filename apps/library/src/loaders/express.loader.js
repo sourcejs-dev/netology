@@ -50,6 +50,7 @@ module.exports = () => {
 		.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }))
 		.use(passport.initialize())
 		.use(passport.session())
+		.use('/static', express.static(path.join(pathRoot, 'public')))
 		.set('view engine', 'ejs')
 		.set('views', path.join(pathRoot, 'views'))
 		.use('/api', require('@routes'))
