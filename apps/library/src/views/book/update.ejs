@@ -1,0 +1,65 @@
+<%- include('../layout/start', { title }) %>
+
+<div
+	id="liveAlertPlaceholder"
+	class="position-absolute top-0 end-0 mt-2 me-2"
+></div>
+<div class="container">
+	<div class="row justify-content-center align-items-center vh-100">
+		<div class="col-4">
+			<form id="form-update" data-id="<%= book._id %>">
+				<div class="form-group">
+					<label>Заголовок</label>
+					<input
+						type="text"
+						class="form-control"
+						name="title"
+						placeholder="Введите заголовок"
+						value="<%= book.title %>"
+					/>
+				</div>
+				<div class="form-group">
+					<label>Описание</label>
+					<textarea
+						type="text"
+						class="form-control"
+						name="description"
+						placeholder="Введите Описание"
+					>
+<%= book.description %></textarea
+					>
+				</div>
+				<div class="form-group">
+					<label>Авторы</label>
+					<input
+						type="text"
+						class="form-control"
+						name="authors"
+						placeholder="Введите Авторов"
+						value="<%= book.authors %>"
+					/>
+				</div>
+				<div class="form-group">
+					<label>Эта книга любимая?</label>
+					<select type="text" class="form-control" name="favorite">
+						<% if (!book.favorite) { %>
+						<option value="false" selected>Нет</option>
+						<option value="true">Да</option>
+						<% } else { %>
+						<option value="true" selected>Да</option>
+						<option value="false">Нет</option>
+						<% } %>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary mt-2">Изменить</button>
+				<a href="/api/user/books/<%= book._id %>" class="btn btn-primary mt-2"
+					>Вернуться назад</a
+				>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script src="/static/js/main.js" defer></script>
+<script src="/static/js/book/update.js" defer></script>
+<%- include('../layout/end') %>

@@ -1,0 +1,63 @@
+<%- include('../layout/start', { title }) %>
+
+<div
+	id="liveAlertPlaceholder"
+	class="position-absolute top-0 end-0 mt-2 me-2"
+></div>
+<div class="container">
+	<div class="row justify-content-center align-items-center vh-100">
+		<div class="col-4">
+			<form
+				id="form-create"
+				method="POST"
+				action="/api/web/books"
+				enctype="multipart/form-data"
+			>
+				<div class="form-group">
+					<label>Изображение</label>
+					<input type="file" class="form-control" name="image" />
+				</div>
+				<div class="form-group">
+					<label>Заголовок</label>
+					<input
+						type="text"
+						class="form-control"
+						name="title"
+						placeholder="Введите заголовок"
+					/>
+				</div>
+				<div class="form-group">
+					<label>Описание</label>
+					<textarea
+						type="text"
+						class="form-control"
+						name="description"
+						placeholder="Введите Описание"
+					></textarea>
+				</div>
+				<div class="form-group">
+					<label>Авторы</label>
+					<input
+						type="text"
+						class="form-control"
+						name="authors"
+						placeholder="Введите Авторов"
+					/>
+				</div>
+				<div class="form-group">
+					<label>Эта книга любимая?</label>
+					<select type="text" class="form-control" name="favorite">
+						<option value="false" selected>Нет</option>
+						<option value="true">Да</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary mt-2">Добавить</button>
+				<a href="/api/user/books" class="btn btn-primary mt-2"
+					>Вернуться назад</a
+				>
+			</form>
+		</div>
+	</div>
+</div>
+
+<%- include('../layout/end') %>

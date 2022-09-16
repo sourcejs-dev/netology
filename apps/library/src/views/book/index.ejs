@@ -1,0 +1,46 @@
+<%- include('../layout/start', { title }) %>
+
+<div class="container">
+	<div class="row justify-content-center align-items-center vh-100">
+		<div class="col-5">
+			<% if (books.length) { %>
+			<ul class="list-group">
+				<% books.forEach((book) => { %>
+				<li
+					class="list-group-item d-flex justify-content-between align-items-center"
+				>
+					<%= book.title %>
+					<a href="/api/user/books/<%= book._id %>" class="btn btn-primary"
+						>Информация</a
+					>
+				</li>
+				<% }); %>
+			</ul>
+			<a
+				href="/api/user/books/create"
+				class="btn btn-primary mx-auto mt-4 d-block"
+				style="width: 200px"
+				>Добавить книгу</a
+			>
+			<% } else { %>
+			<div class="row">
+				<h3 class="text-center">Книги еще не добавлены</h3>
+				<!-- <a
+					href="/api/user/books/create"
+					class="btn btn-primary mx-auto"
+					style="width: 200px"
+					>Добавить книгу</a
+				> -->
+				<a
+					href="/api/user/books/create"
+					class="btn btn-primary mx-auto mt-2 d-block"
+					style="width: 200px"
+					>Добавить книгу</a
+				>
+			</div>
+			<% } %>
+		</div>
+	</div>
+</div>
+
+<%- include('../layout/end') %>
