@@ -20,17 +20,28 @@ const findById = async (id) => {
 	return result;
 };
 const updateById = async (data) => {
-	const { id, ...rest } = data;
+	const { id, file, favorite, ...rest } = data;
+
 	if (!id) throw ApiError.badRequest('Отсутствует параметр id');
 
-	await findById(id);
+	const book = await findById(id);
 
-	if (!Object.keys(rest).length)
+	if (!Object.keys(rest).length && !file)
 		throw ApiError.badRequest(
-			'Передайте хотя бы 1 параметр для обновление сущности'
+			'Передайте хотя бы 1 параметр или загрузите новое изображение для обновление книги'
 		);
 
-	const result = await BookRepository.updateById(data);
+	if (file) {
+		const { fileBook } = book;
+		await unlink(`${pathRoot}/public/images/${fileBook}`).catch((e) =>
+			console.log('Файл не существует или указана некорректаная директория')
+		);
+
+		rest.fileBook = file.fileBook;
+		rest.fileName = file.fileName;
+	}
+
+	const result = await BookRepository.updateById({ ...rest, id });
 
 	return result;
 };
