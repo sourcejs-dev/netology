@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 const ApiError = require('@modules/api-error');
 
 class CreateBookDTO {
@@ -26,7 +25,6 @@ class CreateBookDTO {
 		)
 			throw ApiError('Параметры имеют некорректный тип данных');
 
-		this.id = uuidv4();
 		this.title = title;
 		this.description = description;
 		this.authors = authors;
