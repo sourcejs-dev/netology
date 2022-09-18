@@ -1,8 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
-	const formUpdate = document.querySelector('#form-update');
-	const btnSend = document.querySelector('#form-update button');
+	const form = document.querySelector('form');
 	const inputs = document.querySelectorAll('.form-control');
-	const idBook = formUpdate.dataset.id;
+	const btnSend = document.querySelector('form button');
 	let validForm = true;
 
 	inputs.forEach((item) => {
@@ -20,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	const updateBook = (event) => {
+	btnSend.addEventListener('click', (event) => {
 		event.preventDefault();
 
 		const data = new FormData();
@@ -28,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		inputs.forEach((item) => {
 			const { name, value } = item;
 
-			if (!value && name !== 'image') {
+			if (!value) {
 				item.classList.add('border', 'border-danger');
 				validForm = false;
 			}
@@ -43,8 +42,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (!validForm)
 			return notification('danger', 'Некорректно заполнена форма');
 
-		fetch(`/api/books/${idBook}`, {
-			method: 'PUT',
+		fetch(`/api/books`, {
+			method: 'POST',
 			body: data,
 		})
 			.then(async (res) => {
@@ -56,16 +55,15 @@ window.addEventListener('DOMContentLoaded', () => {
 						resultData?.message || 'Неизвсетная ошибка сервера'
 					);
 
-				notification('success', 'Данные успешно обновлены');
+				notification('success', 'Книга успешно создана');
+				form.reset();
 			})
 			.catch((e) => {
 				notification(
 					'danger',
-					'Ошибка при обновлений данных. Информация в консоли'
+					'Ошибка при созданий книги. Информация в консоли'
 				);
 				console.log(e.stack);
 			});
-	};
-
-	btnSend.addEventListener('click', updateBook);
+	});
 });
