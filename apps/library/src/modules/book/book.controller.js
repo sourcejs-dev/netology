@@ -1,4 +1,3 @@
-const PageError = require('@modules/page-error');
 const { BookService } = require('./book.service');
 
 const findAll = async (req, res) => {
@@ -18,33 +17,22 @@ const create = async (req, res) => {
 	return res.status(201).json(result);
 };
 
-const createWeb = async (req, res) => {
-	const data = { ...req.body };
-
-	if (req.file) {
-		data.fileName = req.file.filename.split('.')[0];
-		data.fileBook = req.file.filename;
-		data.fileCover = req.file.filename;
-	}
-
-	const result = await BookService.create(data).catch((e) => ({
-		stats: false,
-		message: e.message,
-	}));
-
-	if (!result.status) throw PageError.badRequest(result.message);
-
-	return res.redirect('/api/user/books');
-};
-
 const findById = async (req, res) => {
 	const { id } = req.params;
 	const result = await BookService.findById(id);
 	return res.json(result);
 };
 const updateById = async (req, res) => {
+	const data = { ...req.body };
+	if (req.file) {
+		data.file = {};
+		data.file.fileName = req.file.filename.split('.')[0];
+		data.file.fileBook = req.file.filename;
+	}
 	const { id } = req.params;
-	const result = await BookService.updateById({ ...req.body, id });
+	data.id = id;
+
+	const result = await BookService.updateById(data);
 	return res.json(result);
 };
 const destroyById = async (req, res) => {
@@ -61,7 +49,6 @@ const downloadById = async (req, res) => {
 module.exports.BookController = {
 	findAll,
 	create,
-	createWeb,
 	findById,
 	updateById,
 	destroyById,
