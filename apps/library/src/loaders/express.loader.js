@@ -7,6 +7,8 @@ require('express-async-errors');
 
 const { UserService } = require('@modules/user/user.service');
 const { errorHandler } = require('@middlewares/error.middleware');
+const chatLoader = require('./chat.loader');
+const serverLoader = require('./server.loader');
 
 module.exports = () => {
 	passport.use(
@@ -44,16 +46,19 @@ module.exports = () => {
 	});
 
 	const app = express();
+
 	app
 		.use(express.json())
 		.use(express.urlencoded({ extended: true }))
 		.use(session({ secret: 'SECRET', resave: true, saveUninitialized: true }))
 		.use(passport.initialize())
 		.use(passport.session())
-		.use('/static', express.static(path.join(pathRoot, 'public')))
+		.use('/static', express.static(path.join(PATH_ROOT, 'public')))
 		.set('view engine', 'ejs')
-		.set('views', path.join(pathRoot, 'views'))
+		.set('views', path.join(PATH_ROOT, 'views'))
 		.use('/api', require('@routes'))
-		.use(errorHandler)
-		.listen(8080, () => console.log('Server started: http://localhost:8080'));
+		.use(errorHandler);
+
+	serverLoader(app);
+	chatLoader();
 };
