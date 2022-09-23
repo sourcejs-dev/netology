@@ -33,7 +33,7 @@ const updateById = async (data) => {
 
 	if (file) {
 		const { fileBook } = book;
-		await unlink(`${pathRoot}/public/images/${fileBook}`).catch((e) =>
+		await unlink(`${PATH_ROOT}/public/images/${fileBook}`).catch((e) =>
 			console.log('Файл не существует или указана некорректаная директория')
 		);
 
@@ -51,7 +51,7 @@ const destroyById = async (id) => {
 	const item = await findById(id);
 	const result = await BookRepository.destroyById(id);
 
-	await unlink(`${pathRoot}/public/images/${item.fileBook}`).catch(() =>
+	await unlink(`${PATH_ROOT}/public/images/${item.fileBook}`).catch(() =>
 		console.log('Файл не существует или указана некорректаная директория')
 	);
 
