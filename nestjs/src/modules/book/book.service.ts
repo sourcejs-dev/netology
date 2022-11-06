@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateBookDTO } from './dtos/book.dto';
 import { IBook, IBookUpdate } from './interfaces/book.interface';
 
 @Injectable()
@@ -10,8 +11,6 @@ export class BookService {
       description: 'sda',
       authors: '12321',
       favorite: false,
-      fileBook: '12321',
-      fileName: 'asdsad',
     },
   ];
 
@@ -23,8 +22,11 @@ export class BookService {
     return this.books.filter((book) => book.id === id).pop();
   }
 
-  create() {
-    return 'create';
+  create(payload: CreateBookDTO): IBook {
+    const id = String(Date.now());
+    this.books.push({ ...payload, id });
+
+    return { ...payload, id };
   }
 
   updateById(payload: IBookUpdate): IBook {

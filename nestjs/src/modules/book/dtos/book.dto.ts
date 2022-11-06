@@ -1,13 +1,11 @@
-export interface IBook {
-  id: string;
+export class CreateBookDTO {
   title: string;
   description: string;
   authors: string;
   favorite: boolean;
 }
 
-export interface IBookUpdate {
-  id: string;
+export class UpdateBookDTO {
   title?: string;
   description?: string;
   authors?: string;
