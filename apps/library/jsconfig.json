@@ -3,7 +3,7 @@
 		"baseUrl": "./src",
 		"paths": {
 			"@modules/*": ["modules/*"],
-			"@loaders": ["src/loaders/*"],
+			"@loaders/*": ["src/loaders/*"],
 		}
 	}
 }
